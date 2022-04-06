@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,200;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <title>CRUD</title>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">Cadastro de Alunos</h1>
+    </header>
+    <main>
+        <button type="button" class="button blue mobile" id="cadastrar">Cadastrar</button>
+        <table class="records">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Formação</th>
+                    <th>Categoria</th>
+                    <th>Status</th>
+                    <th>Email</th>
+                    <th>Celular</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Maria</td>
+                    <td>História</td>
+                    <td>Humanas</td>
+                    <td>Final</td>
+                    <td>maria@gmail.com</td>
+                    <td>(11) 97165-1111</td>
+                    <td>
+                        <button type="button" class="button green" id="editar">Editar</button>
+                        <!-- <form action="/cadastros" method=""></form> -->
+                        <button type="button" class="button red">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button type="button" class="button green" id="editar">Editar</button>
+                        <button type="button" class="button red">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jose da Silva</td>
+                    <td>Matemática</td>
+                    <td>Exatas</td>
+                    <td>Final</td>
+                    <td>jose@gmail.com</td>
+                    <td>(11) 97165-3333</td>
+                    <td>
+                        <button type="button" class="button green" id="editar">Editar</button>
+                        <button type="button" class="button red">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <form action="/cadastros" method="post">
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h2>Novo Aluno</h2>
+                    <span class="modal-close" id="modalClose">&#10006;</span>
+                </header>
+                <form class="modal-form">
+                    <input name="nome" type="text" class="modal-field" placeholder="Seu nome">
+                    <input name="formacao" type="text" class="modal-field" placeholder="Formação">
+                    <input name="categoria" type="text" class="modal-field" placeholder="Categoria">
+                    <input name="status" type="text" class="modal-field" placeholder="Final/Início">
+                    <input name="email" type="text" class="modal-field" placeholder="Seu Email">
+                    <input name="celular" type="text" class="modal-field" placeholder="(DDD)9000-0000"> 
+                </form>
+            </form>4
+                <footer class="modal-footer">
+                    <button class="button green">Salvar</button>
+                    <button class="button blue" id="cancelar">Cancelar</button>
+                </footer>
+            </div>
+        </div>
+        
+        <div class="modaledit" id="modaledit">
+            <div class="modaledit-content">
+                <header class="modaledit-header">
+                    <h2>Atulizar Informações do aluno</h2>
+                    <span class="modaledit-close" id="modalEditClose">&#10006;</span>
+                </header>
+                <form class="modaledit-form">
+                    <input name="nomeedit" type="text" class="modaledit-field" placeholder="Seu nome">
+                    <input name="formacaoedit" type="text" class="modaledit-field" placeholder="Formação">
+                    <input name="categoriaedit" type="text" class="modaledit-field" placeholder="Categoria">
+                    <input name="statusedit" type="text" class="modaledit-field" placeholder="Final/Início">
+                    <input name="emailedit" type="text" class="modaledit-field" placeholder="Seu Email">
+                    <input name="celularedit" type="text" class="modaledit-field" placeholder="(DDD)9000-0000"> 
+                </form>
+                <footer class="modaledit-footer">
+                    <button class="button green">Salvar</button>
+                    <button class="button blue" id="cancelaredit">Cancelar</button>
+                </footer>
+            </div>
+        </div>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>
