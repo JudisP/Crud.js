@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     fetch('http://localhost:3000/getAll')
     .then(response => response.json())
-    .then(data => console.log(data));
-    loadHTMLTable([]);
+    .then(data =>  loadHTMLTable(data['data']));
 })
 
 // function loadHTMLTable(data) {
@@ -13,6 +12,34 @@ document.addEventListener('DOMContentLoaded', function () {
 //         table.innerHTML = "<tr><td class='no-data' colspan='5'>No Data</td></tr>";
 //     }
 // }
+
+const addBtn = document.querySelector('#savebd');
+
+addBtn.onclick = function() {
+    console.log('click')
+    const nameInput = document.querySelector('#nomeadd');
+    const nome = nameInput.value;
+    nameInput.value = "";
+
+    fetch('http://localhost:3000/insert', {
+        headers: {
+            'Content-type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({nomes: nome,
+        formacao: formacao,
+        categoria: categoria,
+        status: status,
+        email: email,
+        celular: celular})
+    })
+    .then(response => response.json())
+    .then(data => insertRowIntoTable(data['data']));
+}
+
+function insertRowIntoTable(data) {
+
+}
 
 const openModal = () => document.getElementById('modal')
     .classList.add('active')

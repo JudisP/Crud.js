@@ -13,10 +13,10 @@ dotenv.config();
 app.use(express.urlencoded({ extended : true}));
 app.use(express.json());
 
-app.use('/', express.static(__dirname + '/src'));
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/src'));
-});
+// app.use('/', express.static(__dirname + '/src'));
+// app.get('/', function(req, res) {
+//     res.sendFile(path.join(__dirname + '/src'));
+// });
 
 //Salvar no banco de dados
 app.post("/cadastros", (req, res) =>{

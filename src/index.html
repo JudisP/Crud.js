@@ -68,7 +68,7 @@
                 </tr>
             </tbody>
         </table>
-        <form action="/cadastros" method="post">
+        <!-- <form action="/cadastros" method="post"> -->
         <div class="modal" id="modal">
             <div class="modal-content">
                 <header class="modal-header">
@@ -76,16 +76,16 @@
                     <span class="modal-close" id="modalClose">&#10006;</span>
                 </header>
                 <form class="modal-form">
-                    <input name="nome" type="text" class="modal-field" placeholder="Seu nome">
-                    <input name="formacao" type="text" class="modal-field" placeholder="Formação">
-                    <input name="categoria" type="text" class="modal-field" placeholder="Categoria">
-                    <input name="status" type="text" class="modal-field" placeholder="Final/Início">
-                    <input name="email" type="text" class="modal-field" placeholder="Seu Email">
-                    <input name="celular" type="text" class="modal-field" placeholder="(DDD)9000-0000"> 
+                    <input id="nameadd" name="nome" type="text" class="modal-field" placeholder="Seu nome">
+                    <input id="formacaoadd" name="formacao" type="text" class="modal-field" placeholder="Formação">
+                    <input id="categoriaadd" name="categoria" type="text" class="modal-field" placeholder="Categoria">
+                    <input id="statusadd" name="status" type="text" class="modal-field" placeholder="Final/Início">
+                    <input id="emailadd" name="email" type="text" class="modal-field" placeholder="Seu Email">
+                    <input id="celularadd" name="celular" type="text" class="modal-field" placeholder="(DDD)9000-0000"> 
                 </form>
-            </form>4
+    <!-- </form> -->
                 <footer class="modal-footer">
-                    <button class="button green">Salvar</button>
+                    <button class="button green" id="savebd">Salvar</button>
                     <button class="button blue" id="cancelar">Cancelar</button>
                 </footer>
             </div>
