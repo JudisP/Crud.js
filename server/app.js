@@ -1,9 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-// const dotenv = require('dotenv');
 const { response } = require('express');
-// dotenv.config();
 
 const dbService = require('./dbService');
 
@@ -14,7 +12,8 @@ app.use(express.urlencoded({ extended : true }));
 
 // create
 app.post('/insert', (request, response) => {
-    const { nomes } = {nomes: request.body.nome,
+
+    const student = {nomes: request.body.nomes,
         formacao: request.body.formacao,
         categoria: request.body.categoria,
         status: request.body.status,
@@ -22,9 +21,9 @@ app.post('/insert', (request, response) => {
         celular: request.body.celular};
     const db = dbService.getDbServiceInstance();
 
-    const result = db.insertNewName(nomes);
+    const result = db.InsertNewStudent(student);
     
-    result.then(data => response.json({ success: true}))
+    result.then(data => response.json())
     .catch(err => console.log(err));
 });
 
@@ -37,11 +36,11 @@ app.get('/getAll', (request, response) => {
     result.then(data => response.json({data : data}))
     .catch(err => console.log(err));
 })
-/*
+
 // update
-app.patch('/update', (req, resp) => {
+app.put('/update', (request, response) => {
     const { id, name } = request.body;
-    const db = serve.getDbServiceInstance();
+    const db = dbService.getDbServiceInstance();
 
     const result = db.updateNameById(id, name);
     
@@ -51,9 +50,9 @@ app.patch('/update', (req, resp) => {
 });
 
 // delete
-app.delete('/delete/:id', (req, res) => {
-    const { id } = request.params;
-    const db = serve.getDbServiceInstance();
+app.delete('/delete/:id', (request, response) => {
+    const id = request.params.id;
+    const db = dbService.getDbServiceInstance();
 
     const result = db.deleteRowById(id);
     
@@ -61,17 +60,6 @@ app.delete('/delete/:id', (req, res) => {
     .then(data => response.json({success : data}))
     .catch(err => console.log(err));
 });
-
-app.get('/search/:name', (req, res) => {
-    const { name } = request.params;
-    const db = serve.getDbServiceInstance();
-
-    const result = db.searchByName(name);
-    
-    result
-    .then(data => response.json({data : data}))
-    .catch(err => console.log(err));
-})*/
 
 app.listen(3000, function(){
     console.log("Servidor Rodando")

@@ -1,48 +1,3 @@
-// const Connection = require('mysql/lib/Connection')
-// const Sequelize = require('sequelize')
-// const sequelize = new Sequelize('testcrud', 'root', '12345', {
-//     host: 'localhost',
-//     dialect: 'mysql',
-//     define: {
-//         timestamps: false
-//     }
-// })
-
-// sequelize.authenticate().then(function(){
-//     console.log("Conectado com sucesso!")
-// }).catch(function(erro){
-//     console.log("Falha ao se conectar: "+ erro)
-// })
-
-// class DbService {
-//     static getDbServiceInstance() {
-//         return instance ? instance : new DbService;
-//     }
-
-//     async getAllData() {
-//         try {
-//             const response = await new Promise((resolve, reject) => {
-//                 const query = "SELECT * FROM nome;";
-
-//                 Connection.query(query, (err, results) => {
-//                     if (err) reject(new Error(err.message));
-//                     resolve(results);
-//                 })
-//             });
-
-//             console.log(response);
-
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-// }
-
-// module.exports = {
-//     Sequelize: Sequelize,
-//     sequelize: sequelize
-// }
-
 
 const mysql = require('mysql');
 const dotenv = require('dotenv');
@@ -72,12 +27,12 @@ class DbService {
 
     async getAllData() {
         try {
-             const response = await new Promise((resolve, reject) => {
+            const response = await new Promise((resolve, reject) => {
                 // {define:{freezeTableName:true}}
-                 
-                const query = "SELECT * FROM identificadors;";/*WHERE id = ?";"*/
 
-                connection.query(query, /*[id],*/ (err, results) => {
+                const query = "SELECT * FROM identificadors;";
+
+                connection.query(query, /*[id],*/(err, results) => {
                     if (err) reject(new Error(err.message));
                     resolve(results);
                 })
@@ -86,112 +41,65 @@ class DbService {
             return response;
 
         } catch (error) {
-           console.log(error);
+            console.log(error);
         }
     }
 
-    async InsertNewName(nomes) {
+    async InsertNewStudent(student) {
         try {
-            const insertId = await new Promise((resolve, reject, response, request) => {
-
-                // const cad = {nomes: request.body.nome,
-                // formacao: request.body.formacao,
-                // categoria: request.body.categoria,
-                // status: request.body.status,
-                // email: request.body.email,
-                // celular: request.body.celular};
+            const insertId = await new Promise((resolve, reject) => {
 
                 const query = "INSERT INTO identificadors (nomes, formacao, categoria, status, email, celular) VALUE (?, ?, ?, ?, ?, ?);";
 
-                connection.query(query, (err, result) => {
+                connection.query(query, [student.nomes, student.formacao, student.categoria, student.status, student.email, student.celular], (err, result) => {
                     if (err) reject(new Error(err.message));
-                    resolve(result.isertId);
+                    resolve(result.insertId);
                 })
             });
-            console.log(insertId);
-            return response;
+            return insertId;
         } catch (error) {
             console.log(error);
         }
     }
+
+    async deleteRowById(id) {
+        try {
+            id = parseInt(id, 10);
+            const response = await new Promise((resolve, reject) => {
+                const query = "DELETE FROM identificadors WHERE id = ?";
+
+                connection.query(query, [id], (err, result) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(result.affectedRows);
+                })
+            });
+            return response === 1 ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
+    async updateNameById(id, nome) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "UPDATE identificadors SET nomes = ? WHERE id = ?";
+
+                connection.query(query, [nome, id] , (err, result) => {
+                    if (err){
+                        console.log(err)
+                        reject(new Error(err.message));
+                    }
+                    resolve(result.affectedRows);
+                })
+            });
+
+            return response === 1 ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
 }
-
-
-//     async insertNewName(name) {
-//         try {
-//             const dateAdded = new Date();
-//             const insertId = await new Promise((resolve, reject) => {
-//                 const query = "INSERT INTO names (name, date_added) VALUES (?,?);";
-
-//                 connection.query(query, [name, dateAdded] , (err, result) => {
-//                     if (err) reject(new Error(err.message));
-//                     resolve(result.insertId);
-//                 })
-//             });
-//             return {
-//                 id : insertId,
-//                 name : name,
-//                 dateAdded : dateAdded
-//             };
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-
-//     async deleteRowById(id) {
-//         try {
-//             id = parseInt(id, 10); 
-//             const response = await new Promise((resolve, reject) => {
-//                 const query = "DELETE FROM names WHERE id = ?";
-    
-//                 connection.query(query, [id] , (err, result) => {
-//                     if (err) reject(new Error(err.message));
-//                     resolve(result.affectedRows);
-//                 })
-//             });
-    
-//             return response === 1 ? true : false;
-//         } catch (error) {
-//             console.log(error);
-//             return false;
-//         }
-//     }
-
-//     async updateNameById(id, name) {
-//         try {
-//             id = parseInt(id, 10); 
-//             const response = await new Promise((resolve, reject) => {
-//                 const query = "UPDATE names SET name = ? WHERE id = ?";
-    
-//                 connection.query(query, [name, id] , (err, result) => {
-//                     if (err) reject(new Error(err.message));
-//                     resolve(result.affectedRows);
-//                 })
-//             });
-    
-//             return response === 1 ? true : false;
-//         } catch (error) {
-//             console.log(error);
-//             return false;
-//         }
-//     }
-
-//     async searchByName(name) {
-//         try {
-//             const response = await new Promise((resolve, reject) => {
-//                 const query = "SELECT * FROM names WHERE name = ?;";
-
-//                 connection.query(query, [name], (err, results) => {
-//                     if (err) reject(new Error(err.message));
-//                     resolve(results);
-//                 })
-//             });
-
-//             return response;
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-// }
 
 module.exports = DbService;

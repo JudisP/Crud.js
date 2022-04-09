@@ -19,6 +19,11 @@ body{
     position:relative;
 }
 
+tbody{
+    font-family: Arial;
+    font-size:18px;
+}
+
 header{
     background-color: var(--primary-color);
     height: 70px;
